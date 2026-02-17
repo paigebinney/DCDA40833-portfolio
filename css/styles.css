@@ -71,8 +71,41 @@ nav {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Hamburger menu button - hidden on desktop */
+.hamburger {
+    display: none;              /* Hidden by default (desktop) */
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 101;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+/* Hamburger animation when active */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
 /* Style the navigation list */
-nav ul {
+.nav-menu {
     list-style: none;           /* Remove bullets */
     padding: 0;                 /* Remove default padding */
     margin: 0;                  /* Remove default margin */
@@ -96,6 +129,11 @@ nav a {
 }
 
 nav a:hover {
+    background-color: var(--primary-color);
+}
+
+/* Active navigation link */
+nav a.active {
     background-color: var(--primary-color);
 }
 
@@ -382,18 +420,47 @@ footer a:hover {
 
     nav {
         font-size: 0.9rem;
+        justify-content: flex-start;  /* Align hamburger to left */
+        padding: 0.5rem 1rem;
     }
 
-    /* Stack navigation vertically on mobile */
-    nav ul {
-        flex-direction: column;  /* Change from row to column */
-        align-items: center;     /* Center the stacked items */
+    /* Show hamburger button on mobile */
+    .hamburger {
+        display: flex;
     }
 
-    nav a {
-        display: block;          /* Full width for easier tapping */
+    /* Hide menu by default on mobile */
+    .nav-menu {
+        position: fixed;
+        left: -100%;              /* Hidden off-screen */
+        top: 0;
+        flex-direction: column;
+        background-color: #3d1461;
+        width: 70%;               /* 70% of screen width */
+        max-width: 300px;
+        height: 100vh;            /* Full viewport height */
+        padding-top: 4rem;
+        transition: 0.3s;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+        gap: 0;                   /* Remove gap for mobile menu */
+    }
+
+    /* Show menu when active */
+    .nav-menu.active {
+        left: 0;                  /* Slide in from left */
+    }
+
+    .nav-menu li {
         width: 100%;
-        text-align: center;
+        text-align: left;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-menu a {
+        display: block;
+        width: 100%;
+        padding: 1rem 1.5rem;     /* Larger tap targets */
+        text-align: left;
     }
 
     main section {
